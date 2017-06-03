@@ -1728,3 +1728,10 @@ solver(i).constraint.equalities.linear = 1;
 solver(i).constraint.inequalities.secondordercone.linear = 1;
 solver(i).constraint.inequalities.rotatedsecondordercone = 0;
 i = i+1;
+
+solver(i) = lpsolver;
+solver(i).tag     = 'REFINER';
+solver(i).version = '1.0';
+solver(i).checkfor= {'iterative_refinement'};
+solver(i).call    = 'iterative_refinement';
+i = i+1;
