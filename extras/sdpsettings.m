@@ -566,9 +566,9 @@ refiner.maxiter = 200;
 refiner.internalSolver = '';
 refiner.refinePrimal = true;
 refiner.refineDual = true;
-refiner.solvePrimalFirst = false;
-refiner.primalInPrimalForm = false;
-refiner.dualInPrimalForm = false;
+refiner.solvePrimalFirst = true;
+refiner.primalInPrimalForm = true;
+refiner.dualInPrimalForm = true;
 
 
 function bpmpd = setup_bpmpd_options
