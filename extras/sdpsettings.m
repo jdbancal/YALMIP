@@ -22,7 +22,7 @@ function options = sdpsettings(varargin)
 %
 %   GENERAL
 %
-%    solver             - Specify solver [''|sdpt3|sedumi|sdpa|pensdp|penbmi|csdp|dsdp|maxdet|lmilab|cdd|cplex|xpress|mosek|nag|quadprog|linprog|bnb|bmibnb|kypd|mpt|refiner|none ('')]
+%    solver             - Specify solver [''|sdpt3|sedumi|sdpa|pensdp|penbmi|csdp|dsdp|maxdet|lmilab|cdd|conex|cplex|xpress|mosek|nag|quadprog|linprog|bnb|bmibnb|kypd|mpt|refiner|none ('')]
 %    verbose            - Display-level [0|1|2|...(0)] (0 silent, 1 normal, >1 increasingly louder)
 %    usex0              - Use the current values obtained from VALUE as initial iterate if solver supports that [0|1 (0)]
 %    relax              - Disregard integrality constraint and/or relax nonlinear terms  [0 | 1 (both) 2 (relax integrality) 3 (relax nonlinear terms) (0)]
@@ -144,6 +144,9 @@ else
 
     options.clp = setup_clp_options;
     Names = appendOptionNames(Names,options.clp,'clp');
+
+    options.conex = setup_conex_options;
+    Names = appendOptionNames(Names,options.conex,'conex');
 
     options.cplex = setup_cplex_options;
     Names = appendOptionNames(Names,options.cplex,'cplex');
@@ -640,6 +643,37 @@ catch
     clp.primalpivot = 1;
     clp.dualpivot = 1;
 end
+
+function conex = setup_conex_options
+conex.alg    = 2;
+conex.beta   = 0.5;
+conex.theta  = 0.25;
+conex.free   = 1;
+conex.sdp    = 0;
+conex.stepdif= 0;
+conex.w      = [1 1];
+conex.mu     = 1.0;
+conex.eps    = 1e-9;
+conex.bigeps = 1e-3;
+conex.maxiter= 150;
+conex.vplot  = 0;
+conex.stopat     = -1;
+conex.denq   = 0.75;
+conex.denf   = 10;
+conex.numtol = 5e-7;
+conex.bignumtol = 0.9;
+conex.numlvlv = 0;
+conex.chol.skip = 1;
+conex.chol.canceltol = 1e-12;
+conex.chol.maxu   = 5e5;
+conex.chol.abstol = 1e-20;
+conex.chol.maxuden= 5e2;
+conex.cg.maxiter = 25;
+conex.cg.restol  = 5e-3;
+conex.cg.refine  = 1;
+conex.cg.stagtol = 5e-14;
+conex.cg.qprec   = 0;
+conex.maxradius = inf;
 
 function cplex = setup_cplex_options
 try

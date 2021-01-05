@@ -1876,3 +1876,15 @@ solver(i).checkfor= {'iterative_refinement'};
 solver(i).call    = 'iterative_refinement';
 solver(i).supportshighprec = 1;
 i = i+1;
+
+solver(i) = sdpsolver;
+solver(i).tag     = 'conex';
+solver(i).version = '0.0';
+solver(i).checkfor= {'conex.m','ConexPreprocess.m','ConexProgram.m','libconex.so','conex.h'};
+solver(i).call    = 'callconex';
+solver(i).constraint.equalities.linear = 1;
+solver(i).constraint.inequalities.secondordercone.linear = 1;
+solver(i).constraint.inequalities.rotatedsecondordercone.linear = 0;
+solver(i).complex = 1;
+i = i+1;
+
